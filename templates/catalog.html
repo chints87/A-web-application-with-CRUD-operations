@@ -2,6 +2,24 @@
 </head>
 </head>
 <body>
-	<p>This shows all the categories and latest added items </p>
+
+ <span>
+	<h1> Categories </h1>
+	{% for i in category %}
+	<li><a href = #>{{i.name}}</li>
+	{%endfor%}
+</span>
+
+<br>
+
+<a href = #> Add item</a>
+
+<span>
+	<h1> Latest items </h1>	
+    {% for j in latest_items %}
+	<li><a href = #>{{j.item}}<i> ({{j.category}})</i></li></a>
+	{% endfor %}
+</span>
+
 </body>
 </html>

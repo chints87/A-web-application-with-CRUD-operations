@@ -2,6 +2,21 @@
 </head>
 </head>
 <body>
-	<p>This page has a form where one can add an item </p>
+	<form action = "{{url_for('newItem')}}" method = 'POST'>
+		<h2> New Item </h2>
+		<h4> Name: </h4>
+		<input type="text" size="30" name="name">		
+		<h4> Description </h4>
+		<input type="text" size="30" name="description">
+		<h4> Category </h4>
+		<select>
+		{% for i in category%}		
+		   <option value="{{i}}">{{i.name}}</option> 		
+		<br>
+		{% endfor %}
+		</select>
+		<input type="submit" value="Add">
+		<a href = #> Cancel </a>
+
 </body>
 </html>

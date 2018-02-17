@@ -1,7 +1,23 @@
 <html>
-</head>
-</head>
-<body>
-	<p>This page has a form where one can edit an item </p>
-</body>
+    <head>
+	</head>
+	<body>		
+		<form action= # method = 'POST'>
+			<h2> Edit Item </h2>
+			<h4>Title</h4>
+			<input type="text" size="30" name='title' placeholder="{{items[0]['cricket'][0].item}}"> 
+			<h4>Description</h4>
+			<input type="text" size="30" name='description' placeholder="{{items[0]['cricket'][0].description}}"> 			
+			<h4> Category </h4>
+			<select>
+			{% for i in category%}		
+			   <option value="{{i.name}}">{{i.name}}</option> 		
+			<br>
+			{% endfor %}
+			</select>
+			<input type="submit" value="Submit">			
+			<a href = # > Cancel </a>
+		</form>
+    </body>
+
 </html>

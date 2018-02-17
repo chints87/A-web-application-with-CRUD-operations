@@ -2,6 +2,18 @@
 </head>
 </head>
 <body>
-	<p>This page has all the items listed found in this category </p>
+	<h1>Category</h1>
+	{% for i in category %}
+	{{i.name}}</a><br>	
+	{% endfor %}
+
+	<h1> Cricket Items {{items[0]['cricket']|count}} </h1>
+	<br>	
+	{% for j in items[0]['cricket'] %}	
+    <a href = #>{{j.item}}</a>
+    <br>
+	{% endfor %}
 </body>
 </html>
+
+    
