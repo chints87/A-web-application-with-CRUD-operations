@@ -6,18 +6,19 @@
  <span>
 	<h1> Categories </h1>
 	{% for i in category %}
-	<li><a href = #>{{i.name}}</li>
+	<li><a href = "{{url_for('showItems', category_name = i.name)}}">{{i.name}}</li>
 	{%endfor%}
 </span>
 
 <br>
 
-<a href = #> Add item</a>
+<a href = "{{url_for('newItem')}}">Add item</a>
 
 <span>
-	<h1> Latest items </h1>	
-    {% for j in latest_items %}
-	<li><a href = #>{{j.item}}<i> ({{j.category}})</i></li></a>
+	<h1> Latest items </h1>		
+    {% for j in items %}
+	<li><a href = "{{url_for('showDetails', category_name = j.category.name, item_name = j.name)}}">{{j.name}}<i>({{j.category.name}})</i></li></a>
+	
 	{% endfor %}
 </span>
 

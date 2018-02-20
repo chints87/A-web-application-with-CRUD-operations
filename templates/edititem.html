@@ -2,21 +2,22 @@
     <head>
 	</head>
 	<body>		
-		<form action= # method = 'POST'>
+		<form action="{{url_for('editItem', category_name = category_name, item_name = item_name)}}" method = 'POST'>
 			<h2> Edit Item </h2>
 			<h4>Title</h4>
-			<input type="text" size="30" name='title' placeholder="{{items[0]['cricket'][0].item}}"> 
+			<input type="text" size="30" name='name' placeholder="{{editeditem.name}}"> 
 			<h4>Description</h4>
-			<input type="text" size="30" name='description' placeholder="{{items[0]['cricket'][0].description}}"> 			
+			<input type="text" size="30" name='description' placeholder="{{editeditem.description}}"> 			
 			<h4> Category </h4>
 			<select>
+		    <input name="category" size="20">		
 			{% for i in category%}		
-			   <option value="{{i.name}}">{{i.name}}</option> 		
+			   <option value="{{editeditem.name}}">{{editeditem.name}}</option> 		
 			<br>
 			{% endfor %}
 			</select>
 			<input type="submit" value="Submit">			
-			<a href = # > Cancel </a>
+			<a href = "{{url_for('showDetails', category_name = category_name, item_name = item_name)}}" > Cancel </a>
 		</form>
     </body>
 

@@ -2,9 +2,10 @@
 </head>
 </head>
 <body>
-	<h1>{{items[0]['cricket'][0].item}}</h1>
-	<p>{{items[0]['cricket'][0].description}}</p>
-	<a href = #>Edit</a>
-	<a href = #>Cancel</a>
+	<h1>{{item_name}}</h1>
+	<p>{{item_description}}</p>
+	<a href = "{{url_for('editItem', category_name = category_name, item_name = item_name)}}">Edit</a>
+	<a href = "{{url_for('showItems',category_name = category_name)}}">Back</a>
+	<a href = "{{url_for('deleteItem',category_name = category_name, item_name = item_name)}}">Delete</a>
 </body>
 </html>

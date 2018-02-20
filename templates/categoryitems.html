@@ -6,11 +6,11 @@
 	{% for i in category %}
 	{{i.name}}</a><br>	
 	{% endfor %}
-
-	<h1> Cricket Items {{items[0]['cricket']|count}} </h1>
+	<br>
+	<h1>{{category_name}} {{category_items_count}} Items</h1>
 	<br>	
-	{% for j in items[0]['cricket'] %}	
-    <a href = #>{{j.item}}</a>
+	{% for j in category_items %}	
+    <a href = "{{url_for('showDetails', category_name = category_name, item_name = j.name)}}">{{j.name}}</a>
     <br>
 	{% endfor %}
 </body>
