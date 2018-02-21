@@ -2,7 +2,17 @@
 </head>
 </head>
 <body>
-
+ <div class = 'flash'>
+            {% with messages = get_flashed_messages() %} <!-- with in pyhon is construct that does some automatic clean up when the block is exited -->
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li><strong> {{message}}</strong></li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+  </div>
  <span>
 	<h1> Categories </h1>
 	{% for i in category %}
