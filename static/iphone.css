@@ -1,0 +1,145 @@
+* {
+      box-sizing: border-box;
+      font-family: 'Candara';
+      font-weight: bold;
+    }
+
+body{
+  height : 769px;
+}    
+
+.row{
+          
+          display:flex;
+          flex-direction: column;                    
+          background-color: #40e0d0;
+          flex-grow: 1;
+          margin-right: auto;
+          margin-left: auto;
+          height: 25%;
+          font-size : 60px;
+
+        }   
+
+.col-md-6{
+          display:flex; 
+          text-align: space-between;                         
+          background-color: #40e0d0;
+          flex-grow: 1;
+          margin-right: auto;
+          margin-left: auto;          
+        }         
+   
+
+.section-heading{ 
+     font-family: 'Comic Sans';              
+     display: flex;    
+     flex-direction: column;      
+     text-align:center;
+     background-color: red;
+     width:100%;
+     margin-right: auto;
+     margin-left: auto;
+     border-radius: 10px;
+     font-size: 75px;
+    }  
+
+.test{
+     display: flex;
+     flex-direction: column;     
+     text-align: center; 
+     margin-right: auto;
+     margin-left: auto;
+     overflow-y: scroll;
+     
+}
+
+.list-box{
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    height: 400px;
+}      
+
+.list{
+     display: flex;     
+     justify-content: space-around;
+     height: 5%;     
+     font-size: 50px;
+     margin-top: 20px;
+     margin-bottom: 20px;
+}
+
+
+.flash{
+  display: flex;
+  justify-content: center;
+}
+
+.additem{
+  display: flex;
+  justify-content: center;
+  font-size: 75px;
+}
+
+.field{
+  display: flex;
+  flex-direction: column;
+  font-size: 50px; 
+  margin-top: 0px;
+  margin-bottom: 0px; 
+}
+
+.field-description{
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.size-field{
+  margin-left: 15px; 
+  margin-right: 15px;
+  height: 75px; 
+  margin: 25px solid red;
+  font-size: 40px;
+}
+
+.allbutton{
+  width: 100%;
+  height: 50px;  
+  margin-top: 100px;  
+  margin-left: 10%;
+  margin-right: 10%;
+  font-size: 40px;
+}
+
+.cancel-button{
+  width: 25%;
+  height: 50px;
+  margin-top: 100px;  
+  margin-right: 10%;
+  font-size: 40px;
+}
+
+.button-arrangement{
+ display:flex;
+ flex-direction: row;
+ justify-content: space-around;
+ margin-left: auto;
+ margin-right: auto;
+}
+
+.button-test{
+  display: block;
+  width: 115px;
+  height: 25px;
+  background: #4E9CAF;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px
+  color: white;
+  font-weight: bold;
+}
+
+.item-description{
+  font-size: 40px;  
+}

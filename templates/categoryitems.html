@@ -2,20 +2,32 @@
 
 <html>
 </head>
+	<meta charset = "UTF8"> 
+    <link rel = "stylesheet" type="text/css" href="{{ url_for('static', filename='iphone.css') }}" />   
+    <link rel = "stylesheet" type="text/css" media="screen and (min-width:1280px)" href="{{ url_for('static', filename='desktop.css')}}"/>   
 </head>
 <body>
-	
-	<h1>Category</h1>
-	{% for i in category %}
-	{{i.name}}</a><br>	
-	{% endfor %}
-	<br>
-	<h1>{{category_name}} {{category_items_count}} Items</h1>
-	<br>	
-	{% for j in category_items %}	
-    <a href = "{{url_for('showDetails', category_name = category_name, item_name = j.name)}}">{{j.name}}</a>
-    <br>
-	{% endfor %}
+	<div class = layout>
+		<div class = 'test'>
+			<h1 class = 'section-heading'>Category</h1>
+			<div class = 'list-box'>
+				{% for i in category %}
+				<li class = 'list'>{{i.name}}<br>	
+				{% endfor %}
+		    </li>
+		    </div>
+			<br>
+		</div>
+		<div class = 'vertical-line'></div>
+		<div class = 'test'>
+			<h1 class = 'section-heading'>{{category_name}} {{category_items_count}} Items</h1>
+			<br>	
+			{% for j in category_items %}	
+	    	<a href = "{{url_for('showDetails', category_name = category_name, item_name = j.name)}}" class = 'list'>{{j.name}}</a>
+	    	<br>
+			{% endfor %}
+		</div>
+	</div>		
 </body>
 </html>
 

@@ -1,23 +1,33 @@
 {% include "header.html" %}
 
 <html>
-</head>
+</head>    
+	<meta charset = "UTF8"> 
+    <link rel = "stylesheet" type="text/css" href="{{ url_for('static', filename='iphone.css') }}" />   
+    <link rel = "stylesheet" type="text/css" media="screen and (min-width:1280px)" href="{{ url_for('static', filename='desktop.css')}}"/>   
 </head>
 <body>
 	<form action = "{{url_for('newItem')}}" method = 'POST'>
-		<h2> New Item </h2>
-		<h4> Name: </h4>
-		<input type="text" size="30" name="name">		
-		<h4> Description </h4>
-		<input type="text" size="30" name="description">
-		<h4> Category </h4>		
-		<input name = 'category'>
-		{% for i in category %}		
-		   <option value = {{i.name}}>
-		{% endfor %}		
-		<input type="submit" value="Add">
-		<a href = "{{url_for('showCatalog')}}"> Cancel </a>
-	</form>	
+		<h2 class = 'section-heading'> New Item </h2>
+		<div class = 'field'>			
+			<h4 class = 'field-description'> Name </h4>		
+		    <input class = 'size-field' type="text" size="30" name="name">
+		</div>
+		<div class = 'field'>		
+		    <h4 class = 'field-description'> Category </h4>		
+		    <input class = 'size-field' name = 'category'>
+			{% for i in category %}		
+		   		<option value = {{i.name}}>
+			{% endfor %}				
+		<div class = 'field'>
+			<h4 class = 'field-description'> Description </h4>
+			<textarea class = 'textbox-description' rows = "20" columns = "20" name="description">Enter here</textarea>
+	    </div>
+	    <div class = 'button-arrangement'>
+			<input class = 'allbutton' type="submit" value="Add"> 
+			<a href= "{{url_for('showCatalog')}}" class = 'allbutton'> Cancel </a>
+	     </div>
+	</form>	  
 
 </body>
 </html>

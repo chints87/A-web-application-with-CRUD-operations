@@ -20,8 +20,7 @@ class User(Base):
     name = Column(String(80), nullable = False)
     email = Column(String(80), nullable = False)
     picture = Column(String(200))
-    id = Column(Integer, primary_key = True)
-    
+    id = Column(Integer, primary_key = True)   
      
 
 class Category(Base):
@@ -36,10 +35,9 @@ class Category(Base):
     def serializable(self):
         return {
         'name' : self.name,
-        'id' : self.id,                                 
+        'id' : self.id,  
         }      
         
-
 class Items(Base):   
 
     __tablename__ = 'items'

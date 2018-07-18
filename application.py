@@ -271,24 +271,30 @@ def fbdisconnect():
 
 @app.route('/catalog/JSON')
 def showcatalogJSON():    
-    Catalog = {'Category': []}
-    category = session.query(Category).all()   
+    Catalog = {}
+    Catalog ['Category'] = {}
+    Catalog['Category']['Items'] = {}
+    category = session.query(Category).all() 
+    k = 0  
     for i in category: 
-        check= i.serializable
-        Catalog['Category'].append(check)
+        check = i.serializable        
+        Catalog['Category'] = check
         items = session.query(Items).filter_by(category_id = i.id).all()        
         for j in items:    
-            Item = j.serializable
-            Catalog['Category'].append(Item)
+            # Item = j.serializable
+            Catalog['Category']['Items'] = j.serializable
     return jsonify(Catalog)
-
     
 @app.route('/')
 @app.route('/catalog', methods = ['GET'])
 def showCatalog():  
     category = session.query(Category)
     items = session.query(Items).order_by("Items.created_date desc").limit(5)
-    return render_template('catalog.html', category = category, items = items)
+    if 'username' not in login_session :
+        return render_template('publiccatalog.html', category = category, items = items)
+    else :
+        return render_template('catalog.html', category = category, items = items)
+        
 
 @app.route('/catalog/additem', methods = ['GET','POST'])
 def newItem(): 
@@ -323,8 +329,14 @@ def showDetails(category_name,item_name):
     category = session.query(Category).filter_by(name = category_name).one()
     item = session.query(Items).filter_by(category_id = category.id).all()     
     specific_item = session.query(Items).filter_by(name = item_name). one()    
-    return render_template('itemdetail.html', item_name = item_name, \
-     item_description = specific_item.description, category_name = category_name)
+    if 'username' not in login_session :
+        return render_template('publicitemdetail.html', item_name = item_name, \
+            item_description = specific_item.description, category_name = category_name)
+    else :
+        return render_template('itemdetail.html', item_name = item_name, \
+            item_description = specific_item.description, category_name = category_name)
+
+        
 
 @app.route('/catalog/<string:category_name>/<string:item_name>/edit', methods = ['GET', 'POST'])
 def editItem(category_name,item_name):  

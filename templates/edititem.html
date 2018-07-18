@@ -2,25 +2,35 @@
 
 <html>
     <head>
+    	<meta charset = "UTF8"> 
+	    <link rel = "stylesheet" type="text/css" href="{{ url_for('static', filename='iphone.css') }}" />   
+	    <link rel = "stylesheet" type="text/css" media="screen and (min-width:1280px)" href="{{ url_for('static', filename='desktop.css')}}"/>   
 	</head>
 	<body>		
 		<form action="{{url_for('editItem', category_name = category_name, item_name = item_name)}}" method = 'POST'>
-			<h2> Edit Item </h2>
-			<h4>Title</h4>
-			<input type="text" size="30" name='name' placeholder="{{editeditem.name}}"> 
-			<h4>Description</h4>
-			<input type="text" size="30" name='description' placeholder="{{editeditem.description}}"> 			
-			<h4> Category </h4>
-			<select>
-		    <input name="category" size="20">		
-			{% for i in category%}		
-			   <option value="{{editeditem.name}}">{{editeditem.name}}</option> 		
-			<br>
-			{% endfor %}
-			</select>
-			<input type="submit" value="Submit">			
-			<a href = "{{url_for('showDetails', category_name = category_name, item_name = item_name)}}" > Cancel </a>
-		</form>
+			<h2 class = 'section-heading'> Edit Item </h2>
+			<div class = 'field'>
+				<h4 class = 'field-description'>Title</h4>
+				<input class = 'size-field' type="text" size="30" name='name' placeholder="{{editeditem.name}}"> 
+			</div>
+			<div class = 'field'>
+				<h4 class = 'field-description'>Description</h4>
+				<textarea rows = "10" columns = "40" name="description" placeholder="{{editeditem.description}}"></textarea>
+			</div>
+			<div class = 'field'>
+				<h4 class = 'field-description'> Category </h4>
+				<select>
+		    	<input class = 'size-field' name="category" size="20">	{% for i in category%}		
+			    <option value="{{editeditem.name}}">{{editeditem.name}}</option> 		
+			    <br>
+			    {% endfor %}
+			    </select>
+		    </div>
+		    <div class = 'button-arrangement'>
+		        <input class = 'allbutton' type="submit" value="Submit">
+		  	    <a href = "{{url_for('showDetails', category_name = category_name, item_name = item_name)}}" class = 'allbutton'> Cancel </a>			    		
+	        </div>
+	    </form>
     </body>
 
 </html>

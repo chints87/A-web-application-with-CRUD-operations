@@ -9,20 +9,18 @@
   </script>
 
 <script src="//apis.google.com/js/platform.js?onload=start"> </script>
+<meta name="google-signin-client_id" content="1047672154770-pvoe81hu0t082gpu34ghegodasej4772.apps.googleusercontent.com">
 
 <!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
-
-
 </head>
-
-
 <body>  
 
 
 <!-- GOOGLE PLUS SIGN IN-->
 
           
-          <div id="signinButton">
+          <!-- <div id="signinButton"> -->
+          <div class="g-signin2" data-onsuccess="onSignIn"></div>  
           <span class="g-signin"
             data-scope="openid email"
             data-clientid="1047672154770-pvoe81hu0t082gpu34ghegodasej4772.apps.googleusercontent.com"
@@ -32,7 +30,26 @@
             data-callback="signInCallback"
             data-approvalprompt="force">
           </span>
-        </div>
+
+
+          
+          </div>
+
+<script>
+function renderButton() {
+      gapi.signin2.render('g-signin2', {
+        'scope': 'profile email',
+        'width': 1040,
+        'height': 1050,
+        'longtitle': true,
+        'theme': 'light',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+    }
+  </script>
+
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>          
 
 <div id="result"></div>
 
@@ -40,7 +57,7 @@
 function signInCallback(authResult) {
   if (authResult['code']) {
     // Hide the sign-in button now that the user is authorized
-    $('#signinButton').attr('style', 'display: none');
+    $('#g-signin2').attr('style', 'display: none');
     // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main restaurants page
     $.ajax({
       type: 'POST',

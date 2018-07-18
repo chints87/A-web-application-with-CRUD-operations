@@ -9,10 +9,5 @@
 <body>
 	<h1 class = 'section-heading'>{{item_name}}</h1>
 	<p class = 'item-description'>{{item_description}}</p>
-	<div class = "button-arrangement">
-		<a href = "{{url_for('editItem', category_name = category_name, item_name = item_name)}}"><button class = 'allbutton'>Edit</button></a>
-		<a href = "{{url_for('showItems',category_name = category_name)}}"><button class = 'allbutton'>Back</button></a>
-		<a href = "{{url_for('deleteItem',category_name = category_name, item_name = item_name)}}" ><button class = 'allbutton'>Delete</button></a>
-    </div>
 </body>
 </html>

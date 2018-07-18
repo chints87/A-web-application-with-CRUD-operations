@@ -32,7 +32,7 @@ session = DBsession()
 def showLogin():
     #unique session token generation
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
-                    for x in xrange(10))
+                    for x in xrange(32))
     login_session['state'] = state
     # return "%s" % login_session['state']
     return render_template('login.html', STATE=state)
@@ -427,12 +427,12 @@ def disconnect():
         if login_session['provider'] == 'facebook':
             fbdisconnect()
             del login_session['facebook_id']
-        del login_session['username']
-        del login_session['email']
-        del login_session['picture']
-        del login_session['user_id']
-        del login_session['provider']
-        flash("You have successfully been logged out.")
+            del login_session['username']
+            del login_session['email']
+            del login_session['picture']
+            del login_session['user_id']
+            del login_session['provider']
+            flash("You have successfully been logged out.")
         return redirect(url_for('showRestaurants'))
     else:
         flash("You were not logged in")

@@ -1,16 +1,23 @@
+<html>
 
-<div class="row top-menu">
+<head>    
+    <meta charset = "UTF8">	
+	<link rel = "stylesheet" type="text/css" href="{{ url_for('static', filename='iphone.css') }}" />	
+    <link rel = "stylesheet" type="text/css" media="screen and (min-width:1280px)" href="{{ url_for('static', filename='desktop.css')}}"/>   
+</head>
+
+<div class="row">	
 	<div class="col-md-6">
 		<a href="{{url_for('showCatalog')}}">
-			<span class="glyphicon glyphicon-home" aria-hidden="true"></span>Show Catalog
+			<span class="glyphicon" aria-hidden="true"></span>Show Catalog
 		</a>
 	</div>
-	<div class="col-md-6 text-right">
+	<div class="col-md-6">
 			{%if 'username' not in session %}
 			<a href="{{url_for('showLogin')}}">Click Here to Login </a>
 			{% else %}
-			<a href="{{url_for('disconnect')}}">Logout </a>
-			{% endif %}
-		
-	</div>
+			<a href="{{url_for('disconnect')}}">Logout</a>
+			{% endif %}		
+	</div>	
 </div>
+</html>
