@@ -4,24 +4,21 @@
 <html>
 <head>
 
-  <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
-  </script>
+<!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+</script>
 
 <script src="//apis.google.com/js/platform.js?onload=start"> </script>
-<meta name="google-signin-client_id" content="1047672154770-pvoe81hu0t082gpu34ghegodasej4772.apps.googleusercontent.com">
+<meta name="google-signin-client_id" content="1047672154770-81hu0t082gpu34ghegodasej4772.apps.googleusercontent.com">
 
 <!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
 </head>
 <body>  
+   
+    <img src="http:localhost:8000/tempalates/test.png" alt="test" width="auto" height="auto">
 
-
-<!-- GOOGLE PLUS SIGN IN-->
-
-          
-          <!-- <div id="signinButton"> -->
-          <div class="g-signin2" data-onsuccess="onSignIn"></div>  
-          <span class="g-signin"
+    <div id="my-signin2">
+      <span class="g-signin"
             data-scope="openid email"
             data-clientid="1047672154770-pvoe81hu0t082gpu34ghegodasej4772.apps.googleusercontent.com"
             data-redirecturi="postmessage"
@@ -29,35 +26,35 @@
             data-cookiepolicy="single_host_origin"
             data-callback="signInCallback"
             data-approvalprompt="force">
-          </span>
+      </span>          
+     </div>
+
+   <script>    
 
 
-          
-          </div>
-
-<script>
-function renderButton() {
-      gapi.signin2.render('g-signin2', {
+   function renderButton() {
+      gapi.signin2.render('my-signin2', {
         'scope': 'profile email',
-        'width': 1040,
-        'height': 1050,
+        'width': 500,
+        'height': 100,
         'longtitle': true,
-        'theme': 'light',
+        'theme': 'dark',
         'onsuccess': onSuccess,
         'onfailure': onFailure
       });
     }
-  </script>
 
-  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>          
+    function onSuccess() {
+      signInCallback(result);
+    }
+    function onFailure() {
+      signInCallback(result);
+    }
 
-<div id="result"></div>
-
-<script>
-function signInCallback(authResult) {
+  function signInCallback(authResult) {
   if (authResult['code']) {
     // Hide the sign-in button now that the user is authorized
-    $('#g-signin2').attr('style', 'display: none');
+    $('#signinButton').attr('style', 'display: none');
     // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main restaurants page
     $.ajax({
       type: 'POST',
@@ -65,7 +62,7 @@ function signInCallback(authResult) {
       processData: false,
       data: authResult['code'],
       contentType: 'application/octet-stream; charset=utf-8',
-      success: function(result) {
+      onSuccess: function(result) {
         // Handle or verify the server response if necessary.
         if (result) {
           $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
@@ -80,9 +77,10 @@ function signInCallback(authResult) {
          }
       }
       
-  }); } }
-</script>
+  }); } }  
+  </script>
 
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>   
 
 
 <!--END GOOGLE PLUS SIGN IN -->
@@ -107,7 +105,7 @@ function signInCallback(authResult) {
   }(document, 'script', 'facebook-jssdk'));
   // Here we run a very simple test of the Graph API after login is
   // successful.  See statusChangeCallback() for when this call is made.
-  {console.log('here')}
+ 
   function sendTokenToServer() {
     var access_token = FB.getAuthResponse()['accessToken'];
     console.log(access_token)
@@ -139,14 +137,11 @@ function signInCallback(authResult) {
 </script>
 
 
-<button>
-         
-
-          <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
-<a href='javascript:sendTokenToServer()'>Login with Facebook</a>
-
-</fb:login-button>
-
-
-        </button>
+<button >
+   <div class = "facebook">
+   <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();" data-size = "Xlarge" >
+   <a href='javascript:sendTokenToServer()'>Login with Facebook</a>
+   </fb:login-button>
+   </div>
+</button>
 <!--END FACEBOOK SIGN IN -->

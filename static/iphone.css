@@ -1,7 +1,5 @@
 * {
-      box-sizing: border-box;
-      font-family: 'Candara';
-      font-weight: bold;
+      box-sizing: border-box;    
     }
 
 body{
@@ -12,22 +10,23 @@ body{
           
           display:flex;
           flex-direction: column;                    
-          background-color: #40e0d0;
+          background-color: #40e0d070;
           flex-grow: 1;
           margin-right: auto;
           margin-left: auto;
           height: 25%;
-          font-size : 60px;
+          font-size : 40px;
 
         }   
 
 .col-md-6{
           display:flex; 
           text-align: space-between;                         
-          background-color: #40e0d0;
-          flex-grow: 1;
+          background-color: #40e0d000;
+          flex-grow: 2;
           margin-right: auto;
-          margin-left: auto;          
+          margin-left: auto;  
+          font-family: 'Trebuchet MS';        
         }         
    
 
@@ -142,4 +141,9 @@ body{
 
 .item-description{
   font-size: 40px;  
+}
+
+.facebook{
+  width: 300px;
+  height: 100px;
 }
