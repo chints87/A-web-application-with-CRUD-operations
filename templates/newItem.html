@@ -7,6 +7,7 @@
     <link rel = "stylesheet" type="text/css" media="screen and (min-width:1280px)" href="{{ url_for('static', filename='desktop.css')}}"/>   
 </head>
 <body>
+	<!-- This form is used to enter a new item into  catalog -->
 	<form action = "{{url_for('newItem')}}" method = 'POST'>
 		<h2 class = 'section-heading'> New Item </h2>
 		<div class = 'field'>			

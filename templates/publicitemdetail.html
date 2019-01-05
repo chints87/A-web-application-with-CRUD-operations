@@ -6,6 +6,7 @@
     <link rel = "stylesheet" type="text/css" href="{{ url_for('static', filename='iphone.css') }}" />   
     <link rel = "stylesheet" type="text/css" media="screen and (min-width:1280px)" href="{{ url_for('static', filename='desktop.css')}}"/> 
 </head>
+<!-- Display catalog item and description but does not give the option to modify information to the viewer unless they are logged on and are owner of it -->
 <body>
 	<h1 class = 'section-heading'>{{item_name}}</h1>
 	<p class = 'item-description'>{{item_description}}</p>

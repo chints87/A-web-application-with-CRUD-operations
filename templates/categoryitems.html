@@ -6,10 +6,12 @@
     <link rel = "stylesheet" type="text/css" href="{{ url_for('static', filename='iphone.css') }}" />   
     <link rel = "stylesheet" type="text/css" media="screen and (min-width:1280px)" href="{{ url_for('static', filename='desktop.css')}}"/>   
 </head>
+
 <body>
 	<div class = layout>
 		<div class = 'test'>
 			<h1 class = 'section-heading'>Category</h1>
+			<!-- Display all categories -->
 			<div class = 'list-box'>
 				{% for i in category %}
 				<li class = 'list'>{{i.name}}<br>	
@@ -20,6 +22,7 @@
 		</div>
 		<div class = 'vertical-line'></div>
 		<div class = 'test'>
+			<!-- Display specific category user is interested in and list items in the specific category-->
 			<h1 class = 'section-heading'>{{category_name}} {{category_items_count}} Items</h1>
 			<br>	
 			{% for j in category_items %}	

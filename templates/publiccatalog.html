@@ -7,7 +7,7 @@
     <link rel = "stylesheet" type="text/css" href="{{ url_for('static', filename='iphone.css') }}" />   
     <link rel = "stylesheet" type="text/css" media="screen and (min-width:1280px)" href="{{ url_for('static', filename='desktop.css')}}"/>   
 </head>
-
+<!-- Display catalog list and items but does not give the option to modify information to the viewer unless they are logged on and are owner of it -->
 <body> 
         <div class = 'flash'>
                 {% with messages = get_flashed_messages() %} <!-- with in pyhon is construct that does some automatic clean up when the block is exited -->
@@ -24,7 +24,8 @@
         <div class = "layout">    
             
             <div class = 'test'>
-                <h1 class ="section-heading"> Categories </h1>                
+                <h1 class ="section-heading"> Categories </h1> 
+                <div class ="list-box">               
                 {% for i in category %}
                 <li class = 'list'><a href = "{{url_for('showItems', category_name = i.name)}}">{{i.name}}</li></a>
                 {%endfor%}

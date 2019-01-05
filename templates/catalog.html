@@ -9,6 +9,7 @@
 </head>
 
 <body> 
+        <!-- Displays messages when changes such as user logs in or changes are made to the databases -->
         <div class = 'flash'>
                 {% with messages = get_flashed_messages() %} <!-- with in pyhon is construct that does some automatic clean up when the block is exited -->
                 {% if messages %}
@@ -22,7 +23,7 @@
         </div>
 
         <div class = "layout">    
-            
+            <!-- Displays category list-->
             <div class = 'test'>
                 <h1 class ="section-heading"> Categories </h1>
                 <a class = "additem" href = "{{url_for('newItem')}}">Add item</a>
@@ -34,7 +35,8 @@
             </div>            
 
             <div class = 'vertical-line'></div>
-
+            
+            <!-- Displays latest added items -->
             <div class = 'test'>
                 <h1 class ="section-heading"> Latest items </h1>
                 <div class ="list-box">     

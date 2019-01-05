@@ -15,11 +15,9 @@
 </head>
 <body>  
    
-    <img src="http:localhost:8000/tempalates/test.png" alt="test" width="auto" height="auto">
-
     <div id="my-signin2">
-      <span class="g-signin"
-            data-scope="openid email"
+      <span class="g-signin"           
+            data-scope="openid email"            
             data-clientid="1047672154770-pvoe81hu0t082gpu34ghegodasej4772.apps.googleusercontent.com"
             data-redirecturi="postmessage"
             data-accesstype="offline"
@@ -28,41 +26,26 @@
             data-approvalprompt="force">
       </span>          
      </div>
-
-   <script>    
-
-
-   function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 500,
-        'height': 100,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-      });
-    }
-
-    function onSuccess() {
-      signInCallback(result);
-    }
-    function onFailure() {
-      signInCallback(result);
-    }
-
+     <div id="result"></div>
+   <script> 
+   
+  // Callback function
   function signInCallback(authResult) {
   if (authResult['code']) {
     // Hide the sign-in button now that the user is authorized
     $('#signinButton').attr('style', 'display: none');
     // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main restaurants page
     $.ajax({
+      // Pass server state token and one time code from client to server
       type: 'POST',
       url: '/gconnect?state={{STATE}}',
+      // To ensure that jQuery does not convert response to a string
       processData: false,
+      // The data that will be sent to the server
       data: authResult['code'],
+      // Sending arbitary stream of data 
       contentType: 'application/octet-stream; charset=utf-8',
-      onSuccess: function(result) {
+      success: function(result) {
         // Handle or verify the server response if necessary.
         if (result) {
           $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
@@ -73,6 +56,7 @@
       } else if (authResult['error']) {
     console.log('There was an error: ' + authResult['error']);
   } else {
+        // If no response from the application server
         $('#result').html('Failed to make a server-side call. Check your configuration and console.');
          }
       }
@@ -84,6 +68,16 @@
 
 
 <!--END GOOGLE PLUS SIGN IN -->
+
+<!--START FACEBOOK SIGN IN -->
+
+<button >
+   <div class = "facebook">
+   <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();" data-size = "Xlarge" >
+   <a href='javascript:sendTokenToServer()'>Login with Facebook</a>
+   </fb:login-button>
+   </div>
+</button>
 
 <script>
   window.fbAsyncInit = function() {
@@ -99,24 +93,28 @@
   (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
+    js = d.createElement(s); 
+    js.id = id;
     js.src = "//connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-  // Here we run a very simple test of the Graph API after login is
-  // successful.  See statusChangeCallback() for when this call is made.
- 
+  }(document, 'script', 'facebook-jssdk')); 
+  
+  // Callback function
   function sendTokenToServer() {
     var access_token = FB.getAuthResponse()['accessToken'];
     console.log(access_token)
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
       console.log('Successful login for: ' + response.name);
-     $.ajax({      
+     $.ajax({
+      // Pass server state token and one time code from client to server      
       type: 'POST',
       url: '/fbconnect?state={{STATE}}',
+      // To ensure that jQuery does not convert response to a string
       processData: false,
+      // The data that will be sent to the server
       data: access_token,
+      // Sending arbitary stream of data 
       contentType: 'application/octet-stream; charset=utf-8',
       success: function(result) {
         // Handle or verify the server response if necessary.
@@ -125,7 +123,7 @@
          setTimeout(function() {
           window.location.href = "/catalog";
          }, 4000);
-          
+        // If no response from the application server  
       } else {
         $('#result').html('Failed to make a server-side call. Check your configuration and console.');
          }
@@ -136,12 +134,7 @@
   }
 </script>
 
+</body>
 
-<button >
-   <div class = "facebook">
-   <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();" data-size = "Xlarge" >
-   <a href='javascript:sendTokenToServer()'>Login with Facebook</a>
-   </fb:login-button>
-   </div>
-</button>
+
 <!--END FACEBOOK SIGN IN -->

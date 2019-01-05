@@ -9,12 +9,12 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
-#CLASS : TO REPRESENT DATA IN PYTHON
+#The database stores details of the user that log into the system via 
+#Google or Facebook 
 
-# To let SQLAlchemy to know the variable that 
-# we will use to refer to our table.
 class User(Base):
 
+#The table created here is used to store user details
     __tablename__ = 'user'
 
     name = Column(String(80), nullable = False)
@@ -25,12 +25,13 @@ class User(Base):
 
 class Category(Base):
 
+#The table created here stores category details
     __tablename__ = 'category'
 
     name = Column(String(80), nullable = False)
     id = Column(Integer,primary_key = True) 
-    
-    
+
+#The object returned creates json endpoints for categories    
     @property
     def serializable(self):
         return {
@@ -38,8 +39,10 @@ class Category(Base):
         'id' : self.id,  
         }      
         
+
 class Items(Base):   
 
+#The table here is used to store items details along with its repsective category details
     __tablename__ = 'items'
 
     name = Column(String(80), nullable = False)
@@ -48,7 +51,10 @@ class Items(Base):
     created_date = Column(DateTime, default=datetime.datetime.now)
     category_id = Column(Integer, ForeignKey('category.id'))
     category = relationship(Category)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
 
+#The object returned creates json endpoints for items      
     @property
     def serializable(self):
         return {
@@ -60,8 +66,7 @@ class Items(Base):
         }
 
 
-
+#Creates the database named 'catalogdbusers'
 engine = create_engine('sqlite:///catalogdbusers.db')
-
 Base.metadata.create_all(engine)
 

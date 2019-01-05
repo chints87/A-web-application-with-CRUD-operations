@@ -14,13 +14,14 @@ $cd *name of folder*
 2) Using [Flask] https://pypi.org/project/Flask/1.0.2/ import tables from the created database. 
 
 3) Generate a token state to prevent anti-forgery attacks.
+
 ```python
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
     login_session['state'] = state
     # html page is generated with a token 
     return render_template('login.html', STATE=state)
-```python
+```
 
 4) Using Google APIs [https://console.developers.google.com/apis?pli=1] and Facebook APIs[https://developers.facebook.com/], to generate 'Client ID' and 'Client Secret' for the
    web application to enable a user to gain secure access.
@@ -28,7 +29,7 @@ $cd *name of folder*
 5) Add *jquery* script to the *login.html* file.   
 ```javascript   
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-```javascript 
+```
 
 6) For each user of the system, ensure only the creators of that information are able to modify.
 
