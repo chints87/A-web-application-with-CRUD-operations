@@ -451,7 +451,7 @@ def editItem(category_name, item_name):
     edit_category = session.query(Category).filter_by(name=category_name).one()
     # The specific item is filtered from the item_name input
     editeditem = session.query(Items).filter_by(
-        id=edit_category.id, name=item_name).one()
+        name=item_name).one()
 
     if request.method == "POST":
         for key in request.form.keys():

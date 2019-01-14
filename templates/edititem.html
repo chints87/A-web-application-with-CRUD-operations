@@ -19,12 +19,12 @@
 			</div>
 			<div class = 'field'>
 				<h4 class = 'field-description'> Category </h4>
-				<select>
-		    	<input class = 'size-field' name="category" size="20">	{% for i in category%}		
-			    <option value="{{editeditem.name}}">{{editeditem.name}}</option> 		
-			    <br>
+				
+		    	<input class = 'size-field' name="category" size="20">	
+		    	{% for i in category%}		
+			    	<option value={{i.name}}>				    
 			    {% endfor %}
-			    </select>
+			    
 		    </div>
 		    <div class = 'button-arrangement'>
 		        <input class = 'allbutton' type="submit" value="Submit">
