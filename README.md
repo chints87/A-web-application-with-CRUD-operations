@@ -35,8 +35,7 @@ $cd *name of folder*
 
 7) Given the web application function, develop a web server to perform on user requests.
 
-8) For each path - derived from a wireframe - and depending on its objective, take requests to make database queries.
-   Also, create templates for each path and condition dependencies to open respective pages.
+8) For each path - derived from a wireframe - and depending on its objective, take requests to make database queries.Also, create templates for each path and condition dependencies to open respective pages.
 
 9) For each page, perform CRUD operations, using data generated from database queries. 
 
@@ -44,7 +43,7 @@ $cd *name of folder*
 
 ### Acknowledgment 
 
-Some code here has been used, referred to or modified from the following:
+Some code here has been directly used, referred to or modified from the following:
 
 1) [Udacity](https://mena.udacity.com/)
 2) [github](https://github.com/)

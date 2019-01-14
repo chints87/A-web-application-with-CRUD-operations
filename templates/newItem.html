@@ -12,11 +12,11 @@
 		<h2 class = 'section-heading'> New Item </h2>
 		<div class = 'field'>			
 			<h4 class = 'field-description'> Name </h4>		
-		    <input class = 'size-field' type="text" size="30" name="name">
+		    <input class = 'size-field' type="text" size="30" name="name" required>
 		</div>
 		<div class = 'field'>		
 		    <h4 class = 'field-description'> Category </h4>		
-		    <input class = 'size-field' name = 'category'>
+		    <input class = 'size-field' name = 'category' required>
 			{% for i in category %}		
 		   		<option value = {{i.name}}>
 			{% endfor %}				
