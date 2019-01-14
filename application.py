@@ -285,9 +285,20 @@ def showcatalogJSON():
             Catalog['Category'].append([j.serializable])
     return jsonify(Catalog)
 
+@app.route('/catalog/<string:category_name>/JSON')
+def categoryitemJSON(category_name): 
+    category = session.query(Category).filter_by(name=category_name).one()
+    items = session.query(Items).filter_by(category_id = category.id).all()
+    return jsonify(CategoryItem = [i.serializable for i in items])
+
+@app.route('/catalog/<string:category_name>/<string:item_name>/JSON')
+def singleitemJSON(category_name,item_name):
+    category = session.query(Category).filter_by(name=category_name).one()
+    items = session.query(Items).filter_by(category_id = category.id).all()
+    singleitem =  session.query(Items).filter_by(name=item_name).one()
+    return jsonify(SingleItem = singleitem.serializable)    
+
 # Create a new user and add to database
-
-
 def createUser(login_session):
     newUser = User(
         name=login_session['username'],
