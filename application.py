@@ -356,7 +356,9 @@ def newItem():
             name=request.form['category']) .scalar()
         # Add the catergory if it does not exists
         if is_category is None:
-            new_category = Category(name=request.form['category'])
+            new_category = Category(
+                name=request.form['category'],
+                user_id=login_session['user_id'])
             session.add(new_category)
             session.commit()
         # Retrieve info for specific category
