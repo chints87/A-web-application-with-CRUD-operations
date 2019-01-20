@@ -1,24 +1,24 @@
-from flask import Flask, render_template, url_for, redirect, flash, request, jsonify
-from sqlalchemy import create_engine, and_, func
-from sqlalchemy.orm import sessionmaker
-from catalog_database_setup_users import User, Base, Category, Items
-app = Flask(__name__)
-
-# like a dictionary that stores user longevity with server
-from flask import session as login_session
 import random
 import string
-
+import httplib2  # http client lib in python
+import json  # provides an API converting in memory python objects 
+#to a serialized rep. known as Json
+import requests  # apache 2.0 licensed HTTP library written in python
+from flask import Flask, render_template, url_for, redirect, flash, request, jsonify
+# like a dictionary that stores user longevity with server
+from flask import session as login_session
 # store json formatted style clientid, clientsecret and other oauth2 parameters
 from oauth2client.client import flow_from_clientsecrets
 # catch error when trying to exchange an authorization code for an access token
 from oauth2client.client import FlowExchangeError
-import httplib2  # http client lib in python
-import json  # provides an API converting in memory python objects to a serialized rep. known as Json
 # converts return value from a function into a real response object that
 # we can send to our client
 from flask import make_response
-import requests  # apache 2.0 licensed HTTP library written in python
+
+from sqlalchemy import create_engine, and_, func
+from sqlalchemy.orm import sessionmaker
+from catalog_database_setup_users import User, Base, Category, Items
+app = Flask(__name__)
 
 # Store web app credentials
 CLIENT_ID = json.loads(
@@ -285,20 +285,24 @@ def showcatalogJSON():
             Catalog['Category'].append([j.serializable])
     return jsonify(Catalog)
 
+
 @app.route('/catalog/<string:category_name>/JSON')
-def categoryitemJSON(category_name): 
+def categoryitemJSON(category_name):
     category = session.query(Category).filter_by(name=category_name).one()
-    items = session.query(Items).filter_by(category_id = category.id).all()
-    return jsonify(CategoryItem = [i.serializable for i in items])
+    items = session.query(Items).filter_by(category_id=category.id).all()
+    return jsonify(CategoryItem=[i.serializable for i in items])
+
 
 @app.route('/catalog/<string:category_name>/<string:item_name>/JSON')
-def singleitemJSON(category_name,item_name):
+def singleitemJSON(category_name, item_name):
     category = session.query(Category).filter_by(name=category_name).one()
-    items = session.query(Items).filter_by(category_id = category.id).all()
-    singleitem =  session.query(Items).filter_by(name=item_name).one()
-    return jsonify(SingleItem = singleitem.serializable)    
+    items = session.query(Items).filter_by(category_id=category.id).all()
+    singleitem = session.query(Items).filter_by(name=item_name).one()
+    return jsonify(SingleItem=singleitem.serializable)
 
 # Create a new user and add to database
+
+
 def createUser(login_session):
     newUser = User(
         name=login_session['username'],
@@ -357,8 +361,8 @@ def newItem():
         # Add the catergory if it does not exists
         if is_category is None:
             new_category = Category(
-                name=request.form['category'],
-                user_id=login_session['user_id'])
+                name=request.form['category'])
+                # user_id=login_session['user_id'])
             session.add(new_category)
             session.commit()
         # Retrieve info for specific category
