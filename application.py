@@ -458,35 +458,43 @@ def editItem(category_name, item_name):
     # The specific item is filtered from the item_name input
     editeditem = session.query(Items).filter_by(
         name=item_name).one()
-
-    if request.method == "POST":
-        for key in request.form.keys():
-            # Change item name
-            if key == 'name' and request.form[key]:
-                editeditem.name = request.form[key]
-            # Change item description
-            if key == 'description' and request.form[key]:
-                editeditem.description = request.form[key]
-            # Change item category
-            if key == 'category' and request.form[key]:
-                new_category = request.form[key]
-                edit_new_category = session.query(
-                    Category).filter_by(name=new_category).one()
-                editeditem.category_id = edit_new_category.id
-        # Modification made to the database
-        session.add(editeditem)
-        session.commit()
-        # Message shown that item has been edited
-        flash("Item has been edited")
-        # The app returns to the default catalog page
-        return redirect(url_for('showCatalog'))
+    creator = getUserInfo(editeditem.user_id)
+    if 'username' in login_session or creator.id == login_session['user_id']:        
+        if request.method == "POST":
+            for key in request.form.keys():
+                # Change item name
+                if key == 'name' and request.form[key]:
+                    editeditem.name = request.form[key]
+                # Change item description
+                if key == 'description' and request.form[key]:
+                    editeditem.description = request.form[key]
+                # Change item category
+                if key == 'category' and request.form[key]:
+                    new_category = request.form[key]
+                    edit_new_category = session.query(
+                        Category).filter_by(name=new_category).one()
+                    editeditem.category_id = edit_new_category.id
+            # Modification made to the database
+            session.add(editeditem)
+            session.commit()
+            # Message shown that item has been edited
+            flash("Item has been edited")
+            # The app returns to the default catalog page
+            return redirect(url_for('showCatalog'))
+        else:
+            # The app renders the item edit page
+            return render_template(
+                'edititem.html',
+                editeditem=editeditem,
+                category_name=category_name,
+                item_name=item_name)
     else:
-        # The app renders the item edit page
         return render_template(
-            'edititem.html',
-            editeditem=editeditem,
+            'publicitemdetail.html',
+            item_name=item_name,
+            item_description=specific_item.description,
             category_name=category_name,
-            item_name=item_name)
+            creator=creator)              
 
 
 # Over here the creator can delete item in a category
@@ -502,20 +510,29 @@ def deleteItem(category_name, item_name):
     # The specific item is filtered from the item_name input
     deleteditem = session.query(Items).filter_by(
         category_id=delete_category.id, name=item_name).one()
-    if request.method == "POST":
-        # Modification is made to the database
-        session.delete(deleteditem)
-        session.commit()
-        # Message shown that item has been deleted
-        flash("Item has been deleted")
-        # The app returns to the default catalog page
-        return redirect(url_for('showCatalog'))
+    creator = getUserInfo(deleteditem.user_id)
+    if 'username' in login_session or creator.id == login_session['user_id']:
+        if request.method == "POST":
+            # Modification is made to the database
+            session.delete(deleteditem)
+            session.commit()
+            # Message shown that item has been deleted
+            flash("Item has been deleted")
+            # The app returns to the default catalog page
+            return redirect(url_for('showCatalog'))
+        else:
+            # The app renders the item delete page
+            return render_template(
+                'deleteitem.html',
+                category_name=category_name,
+                item_name=item_name)
     else:
-        # The app renders the item delete page
         return render_template(
-            'deleteitem.html',
+            'publicitemdetail.html',
+            item_name=item_name,
+            item_description=specific_item.description,
             category_name=category_name,
-            item_name=item_name)
+            creator=creator)         
 
 # Disconnect based on provider
 
