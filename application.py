@@ -1,10 +1,11 @@
 import random
 import string
 import httplib2  # http client lib in python
-import json  # provides an API converting in memory python objects 
-#to a serialized rep. known as Json
+# provides an API to convert in memory python objects to serialized Json
+import json
 import requests  # apache 2.0 licensed HTTP library written in python
-from flask import Flask, render_template, url_for, redirect, flash, request, jsonify
+from flask import Flask, render_template, url_for, redirect, flash, request, \
+    jsonify
 # like a dictionary that stores user longevity with server
 from flask import session as login_session
 # store json formatted style clientid, clientsecret and other oauth2 parameters
@@ -75,7 +76,8 @@ def gconnect():
     access_token = credentials.access_token
 
     # Google API server can verify that if this is a valid token for use
-    url = ("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token={}".format(access_token))
+    url = ("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token={}"
+           .format(access_token))
     # json GET request containing url and access token
     h = httplib2.Http()
     result = json.loads(h.request(url, 'GET')[1])
@@ -141,7 +143,8 @@ def gconnect():
     output += '!</h1>'
     output += '<img src="'
     output += login_session['picture']
-    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;\
+    -webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
     flash("you are now logged in as %s" % login_session['username'])
     print "done!"
     return output
@@ -163,7 +166,8 @@ def gdisconnect():
     print 'In gdisconnect access token is %s', access_token
     print 'User name is: '
     print login_session['username']
-    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % login_session['access_token']
+    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % \
+        login_session['access_token']
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
     print 'result is '
@@ -196,13 +200,15 @@ def fbconnect():
     access_token = request.data
 
     # Exchange client token for long-lived server-side token with
-    # oauth/access_token?grant_type=fb_exchange_token&client_id=%s&client_secret=%s&fb_exchange_token={short-lived-token}'
+    # oauth/access_token?grant_type=fb_exchange_token&client_id=%s\
+    # &client_secret=%s&fb_exchange_token={short-lived-token}'
 
     app_id = json.loads(open('fb_client_secrets.json', 'r').read())[
         'web']['app_id']
     app_secret = json.loads(open('fb_client_secrets.json', 'r').read())[
         'web']['app_secret']  # to verify server identity
-    url = 'https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=%s&client_secret=%s&fb_exchange_token=%s' % (
+    url = 'https://graph.facebook.com/oauth/access_token?grant_type= \
+    fb_exchange_token&client_id=%s&client_secret=%s&fb_exchange_token=%s' % (
         app_id, app_secret, access_token)
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
@@ -220,7 +226,8 @@ def fbconnect():
 
     # If token works, then one should be able to make API calls with the new
     # token
-    url = 'https://graph.facebook.com/v2.9/me?access_token=%s&fields=name,id,email' % token
+    url = 'https://graph.facebook.com/v2.9/me?access_token=%s& \
+    fields=name,id,email' % token
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
     data = json.loads(result)
@@ -230,7 +237,8 @@ def fbconnect():
     login_session['facebook_id'] = data["id"]
 
     # Get user picture. FB uses a seperate API call to obtain profile picture
-    url = 'https://graph.facebook.com/v2.9/me/picture?access_token=%s&redirect=0&height=200&width=200' % token
+    url = 'https://graph.facebook.com/v2.9/me/picture?\
+    access_token=%s&redirect=0&height=200&width=200' % token
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
     data = json.loads(result)
@@ -250,7 +258,8 @@ def fbconnect():
     output += '!</h1>'
     output += '<img src="'
     output += login_session['picture']
-    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+    output += ' " style = "width: 300px; height: 300px;border-radius: \
+    150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
 
     flash("Now logged in as %s" % login_session['username'])
     return output
@@ -362,7 +371,7 @@ def newItem():
         if is_category is None:
             new_category = Category(
                 name=request.form['category'])
-                # user_id=login_session['user_id'])
+        # user_id=login_session['user_id'])
             session.add(new_category)
             session.commit()
         # Retrieve info for specific category
@@ -428,7 +437,8 @@ def showDetails(category_name, item_name):
     creator = getUserInfo(specific_item.user_id)
     # If item is not created by the user then a public page is rendered that
     # displays item description
-    if 'username' not in login_session or creator.id != login_session['user_id']:
+    if 'username' not in login_session or creator.id != \
+            login_session['user_id']:
         return render_template(
             'publicitemdetail.html',
             item_name=item_name,
@@ -459,7 +469,7 @@ def editItem(category_name, item_name):
     editeditem = session.query(Items).filter_by(
         name=item_name).one()
     creator = getUserInfo(editeditem.user_id)
-    if 'username' in login_session or creator.id == login_session['user_id']:        
+    if 'username' in login_session or creator.id == login_session['user_id']:
         if request.method == "POST":
             for key in request.form.keys():
                 # Change item name
@@ -491,13 +501,12 @@ def editItem(category_name, item_name):
     else:
         return render_template(
             'publicitemdetail.html',
-            item_name=item_name,
-            item_description=specific_item.description,
-            category_name=category_name,
-            creator=creator)              
-
+            item_name=item_name, item_description=specific_item.description,
+            category_name=category_name, creator=creator)
 
 # Over here the creator can delete item in a category
+
+
 @app.route(
     '/catalog/<string:category_name>/<string:item_name>/delete',
     methods=[
@@ -529,10 +538,8 @@ def deleteItem(category_name, item_name):
     else:
         return render_template(
             'publicitemdetail.html',
-            item_name=item_name,
-            item_description=specific_item.description,
-            category_name=category_name,
-            creator=creator)         
+            item_name=item_name, item_description=specific_item.description,
+            category_name=category_name, creator=creator)
 
 # Disconnect based on provider
 
